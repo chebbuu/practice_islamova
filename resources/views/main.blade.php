@@ -26,15 +26,16 @@
                                     <div class="d-flex align-items-end gap-2">
                                         <h5 style="padding: 0;margin: 0;overflow-wrap:break-word;word-break: break-all ">{{$task['name']}}</h5>
                                         <div class="d-flex gap-2 " style="font-size: 12px;color: #6b7280">
-                                            <p>{{$task['created_at']->format('h:i')}}</p>
+
                                             <p>{{$task['created_at']->format('d.m.y')}}</p>
                                         </div>
                                     </div>
 {{--УДАЛЕНИЕ И РЕДАКТИРОВАНИЕ--}}
                                     <div class="decoraten_b">
 {{--УДАЛЕНИЕ--}}
-                                        <form action="/deleteTask" method="post">
+                                        <form action="{{(route('task.delete',$task))}}" method="post">
                                             @csrf
+                                            @method('delete')
                                             <input type="hidden" name="taskId" value="{{$task['id']}}">
                                             <button><img src="/icon/dash-circle.svg"></button>
                                         </form>
@@ -42,7 +43,7 @@
                                         <div class="modalbutton" style="position: relative">
                                             <button  ><img src="/icon/pencil.svg"></button>
                                             <div class="modalwindow p-4 " style="z-index: 1000;position: absolute; background-color: white;box-shadow: 0px 2px 10px rgba(0,0,0,0.09); border-radius: 3px ">
-                                                <form style="width: 250px" class="d-flex flex-column gap-2" action="/updateTask" method="post">
+                                                <form style="width: 250px" class="d-flex flex-column gap-2" action="{{(route('task.update',$task))}}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="taskId" value="{{ $task->id }}">
                                                     <div class="">
@@ -82,7 +83,7 @@
             <div class="w-25">
                 <h3>Add Task</h3>
                 <hr>
-                <form class="d-flex flex-column gap-2 " method="post"  action="/addTask">
+                <form class="d-flex flex-column gap-2 " method="post"  action="{{(route('task.create'))}}">
                     @csrf
 
                     <div class="">

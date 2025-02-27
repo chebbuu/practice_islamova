@@ -1,21 +1,18 @@
 <?php
 
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-/////////////////////GET///////////////////////
 Route::get('/', [MainController::class, 'mainPage'])->name('main');
 
+Route::middleware('auth')->group(function () {
+    Route::post('/task', [TaskController::class, 'create'])->name('task.create');
+    Route::delete('/task/{task}', [TaskController::class, 'delete'])->name('task.delete');
+    Route::post('/task/{task}', [TaskController::class, 'update'])->name('task.update');
+});
 
-/////////////////////POST///////////////////////
-Route::post('/addTask', [PostController::class, 'addTask']);
-Route::post('/deleteTask', [PostController::class, 'deleteTask']);
-Route::post('/updateTask', [PostController::class, 'updateTask']);
-
-
-/////////////////////AUTH///////////////////////
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
