@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'mainPage'])->name('main');
 
-Route::middleware('auth')->group(function () {
-    Route::post('/task', [TaskController::class, 'create'])->name('task.create');
-    Route::delete('/task/{task}', [TaskController::class, 'delete'])->name('task.delete');
-    Route::post('/task/{task}', [TaskController::class, 'update'])->name('task.update');
+Route::middleware('auth')->name('task.')->prefix('task')->group(function () {
+    Route::post('/', [TaskController::class, 'create'])->name('create');
+    Route::delete('/{task}', [TaskController::class, 'delete'])->name('delete');
+    Route::post('/{task}', [TaskController::class, 'update'])->name('update');
 });
 
 Route::middleware('auth')->group(function () {

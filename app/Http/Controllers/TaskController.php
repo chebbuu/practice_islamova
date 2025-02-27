@@ -12,16 +12,17 @@ class TaskController extends Controller
 {
     public function create(CreateTaskRequest $request)
     {
-        Task::create([
+        $user = Auth::user();
+        $task = $user->tasks()->create([
             'name' => $request->validated()['name'],
             'description' => $request->validated()['description'],
-            'user_id' => Auth::id()
         ]);
+
 
         return redirect()->back();
     }
 
-    public function delete(request $request, Task $task)
+    public function delete(Request $request, Task $task)
     {
         $task->delete();
 
@@ -30,9 +31,8 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
-        $task->name = $request->name;
 
-        $task->description = $request->description;
+        $task->update($request->only(['name', 'description']));
 
         $task->save();
 
