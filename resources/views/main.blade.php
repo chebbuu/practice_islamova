@@ -43,7 +43,7 @@
                                         <div class="modalbutton" style="position: relative">
                                             <button  ><img src="/icon/pencil.svg"></button>
                                             <div class="modalwindow p-4 " style="z-index: 1000;position: absolute; background-color: white;box-shadow: 0px 2px 10px rgba(0,0,0,0.09); border-radius: 3px ">
-                                                <form style="width: 250px" class="d-flex flex-column gap-2" action="{{(route('task.update',$task))}}" method="post">
+                                                <form style="width: 250px" class="d-flex flex-column gap-2" action="{{(route('task.update', $task))}}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="taskId" value="{{ $task->id }}">
                                                     <div class="">

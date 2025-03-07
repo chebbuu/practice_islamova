@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ class TaskController extends Controller
         return redirect()->back();
     }
 
-    public function delete(DeleteTaskRequest $request, Task $task)
+    public function delete(Request $request, Task $task)
     {
         $task->delete();
 
@@ -27,8 +26,7 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
-
-       $task->update($request->validated());
+        $task->update($request->validated());
 
         return redirect()->back()->with('success', 'Задача успешно обновлена!');
     }
