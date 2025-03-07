@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\MainController;
+
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [MainController::class, 'mainPage'])->name('main');
+Route::get('/', [TaskController::class, 'index'])->name('main');
 
 Route::middleware('auth')->name('task.')->prefix('task')->group(function () {
     Route::post('/', [TaskController::class, 'create'])->name('create');

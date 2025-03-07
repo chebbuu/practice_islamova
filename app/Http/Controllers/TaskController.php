@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
+    public function index()
+    {
+        $tasks = Task::where('user_id', auth()->id())->get();
+
+        return view('main', [
+            'tasks' => $tasks
+        ]);
+    }
+
     public function create(CreateTaskRequest $request)
     {
         Auth::user()->tasks()->create($request->validated());
@@ -17,7 +26,7 @@ class TaskController extends Controller
         return redirect()->back();
     }
 
-    public function delete(Request $request, Task $task)
+    public function delete(Task $task)
     {
         $task->delete();
 
